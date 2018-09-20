@@ -1,6 +1,6 @@
 class ScreenObject {
-    constructor() {
-        this.drawable = null;
+    constructor(drawable) {
+        this.drawable = drawable;
         this.xPos = 0;
         this.yPos = 0;
     }
