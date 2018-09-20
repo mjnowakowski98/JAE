@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas style="border:1px solid;" id="canvas" width="800" height="600">
+        <p>Browser not supported</p>
+    </canvas>
+
+    <script src="engine/point.js"></script>
+    <script src="engine/drawingmethod.js"></script>
+    <script src="engine/drawable.js"></script>
+    <script src="engine/ScreenObject.js"></script>
+    <script src="engine/frame.js"></script>
+    <script src="engine/animation.js"></script>
+    <script src="engine/renderer.js"></script>
+
+    <script>
+        let ctx = document.getElementById("canvas").getContext("2d");
+
+        let methods = new Array();
+        let m1 = new DrawingMethod("moveTo");
+        m1.toPoint = new Point(10, 10);
+        
+        let m2 = new DrawingMethod("lineTo");
+        m2.toPoint = new Point(20, 10);
+
+        let m3 = new DrawingMethod("lineTo");
+        m3.toPoint = new Point(20, 20);
+        
+        let m4 = new DrawingMethod("lineTo");
+        m4.toPoint = new Point(10, 20);
+
+        let m5 = new DrawingMethod("closePath");
+
+        methods.push(m1, m2, m3, m4, m5);
+        
+        let draw1 = new Drawable(methods);
+        ctx.fill(draw1.path);
+
+    </script>
+</body>
+</html>
