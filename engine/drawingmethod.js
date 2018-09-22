@@ -1,6 +1,8 @@
 class DrawingMethod {
     constructor(methodName, args) {
-        this.methodName = methodName;
-        this.args = args;
+        let methodName = methodName;
+        this.getMethodName = function() { return methodName; }
+        let args = args;
+        this.getArgs = function() { return args; }
     }
 }
