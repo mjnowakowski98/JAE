@@ -1,6 +1,6 @@
 class DrawingMethod {
-    constructor(methodName) {
-        this.toPoint = null;
+    constructor(methodName, args) {
         this.methodName = methodName;
+        this.args = args;
     }
 }
