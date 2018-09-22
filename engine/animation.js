@@ -6,7 +6,7 @@ class Animation {
             animName = name;
             dispatchEvent(Animation._nameChangeEvent);
         }
-        
+
         let canvasColor = "#FFFFFF";
         this.getCanvasColor = function() { return canvasColor; }
         this.setCanvasColor = function(color) {
@@ -46,7 +46,9 @@ class Animation {
         this.unregisterDrawable = function(drawable) {
             let ndx = drawables.indexOf(drawable);
             if(ndx !== -1) {
-                drawable[ndx] = null;
+                for(let i in drawbles[ndx])
+                    delete drawables[ndx][i];
+                    
                 dispatchEvent(Animation._drawablesChangeEvent);
             }
         }
