@@ -11,16 +11,21 @@ class Renderer {
 
         for(let i = 0; i < Renderer.anim.frames[Renderer._currentFrame].onScreen.length; i++) {
             let screenObject = Renderer.anim.frames[Renderer._currentFrame].onScreen[i];
-
-            ctx.save();
-            ctx.translate(screenObject.position.x, screenObject.position.y);
-            ctx.fill(screenObject.drawable.path);
-            ctx.restore();
+            Renderer.draw(screenObject.drawable, screenObject.position.x, screenObject.position.y);
         }
 
         if(!Renderer.playMode) dispatchEvent(Renderer._frameEndEvent);
 
         Renderer._requestId = requestAnimationFrame(Renderer.render);
+    }
+
+    static draw(drawable, position) {
+        ctx.save();
+        ctx.translate(position.x, position.y);
+        
+        // Iterate through drawing methods here
+        
+        ctx.restore();
     }
 
     static scrubFrames(numFrames) {
