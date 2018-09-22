@@ -6,7 +6,7 @@ class Drawable {
         let path = new Path2D();
         for(let i = 0; i < methodList.length; i++) {
             let method = methodList[i];
-            path[method.methodName].apply(path, method.args)
+            path[method.getMethodName()].apply(path, method.getArgsList());
         }
         this.getPath = function() { return path; }
 
