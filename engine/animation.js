@@ -30,7 +30,7 @@ class Animation {
             dispatchEvent(Animation._canvasSizeChangeEvent);
         }
 
-        let framesPerSecond = 60;
+        let framesPerSecond = 0;
         this.getFramesPerSecond = function() { return framesPerSecond; }
         this.setFramesPerSecond = function(fps) {
             framesPerSecond = fps;
@@ -63,8 +63,8 @@ class Animation {
         saveObject.canvasWidth = this.getCanvasWidth();
         saveObject.canvasHeight = this.getcanvasHeight();
         saveObject.framesPerSecond = this.getFramesPerSecond();
-        saveObject.drawables = this.getDrawables();
-        saveObject.layers = this.getLayers();
+        //saveObject.drawables = this.getDrawables();
+        //saveObject.layers = this.getLayers();
         return JSON.stringify(saveObject);
     }
 
@@ -75,11 +75,11 @@ class Animation {
         this.setCanvasWidth(tmp.canvasWidth);
         this.setCanvasHeight(tmp.canvasHeight);
         this.setFramesPerSecond(tmp.framesPerSecond);
-        for(let i = 0; i < tmp.drawables.length; i++)
+        /*for(let i = 0; i < tmp.drawables.length; i++)
             this.registerDrawable(tmp.drawables[i]);
 
         for(let i = 0; i < tmp.layers.length; i++)
-            i = i;
+            i = i;*/
     }
 }
 

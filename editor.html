@@ -33,21 +33,22 @@
         let draw1 = new Drawable(methods);
 
         let anim = new Animation();
+        Renderer.anim = anim;
+        anim.setFramesPerSecond(60);
         anim.registerDrawable(draw1);
         let draw2 = anim.getDrawables()[0];
 
         anim.getLayers()[0].getFrames()[0].addObject(new ScreenObject(draw1, new Point(100, 100)));
+        anim.getLayers()[0].getFrames()[0].getOnScreen()[0].setFillStyle("#a3a3a3");
         let draw3 = anim.getLayers()[0].getFrames()[0].getOnScreen()[0].getDrawable();
 
         if(draw1 === draw2 && draw2 === draw3) console.log(":D");
         else console.error(":(");
 
-        anim.getLayers()[0].addFrame(0);
+        Renderer.ctx = document.getElementById("canvas").getContext("2d");
+        Renderer.render();
 
-        anim.addLayer();
 
-        console.log(anim.getNumFrames());
-        console.log(anim.getLayers()[1].getFrames());
 
     </script>
 </body>

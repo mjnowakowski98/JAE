@@ -4,6 +4,7 @@ class Frame {
         this.getOnScreen = function() { return onScreen; }
         this.addObject = function(screenObject) {
             onScreen.push(screenObject);
+            return screenObject;
         }
         this.removeObject = function(screenObject) {
             let ndx = onScreen.indexOf(screenObject);
