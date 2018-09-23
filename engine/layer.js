@@ -14,29 +14,27 @@ class Layer {
                 return;
             }
     
-            frames.splice(frameNdx + 1, 0, new Frame());
+            let newFrame = new Frame();
             if(copy) {
-                let newFrame = frame[frameNdx + 1].onScreen;
                 let oldFrame = frame[frameNdx].onScreen;
                 for(let i = 0; i < oldFrame.length; i++)
-                    newFrame[i] = Object.assign({}, oldFrame[i]);
+                    newFrame.onScreen[i] = Object.assign({}, oldFrame[i]);
             }
+            frames.splice(frameNdx + 1, 0, newFrame);
+            return newFrame();
         }
-        this.removeFrame = function(frameNdx) {
-            if(frameNdx < 0 || frameNdx >= frames.length) {
-                console.error("Cannot remove frame: " + frameNdx);
-                return;
-            } else if (frames.length <= 1) {
+        this.removeFrame = function(frame) {
+            if (frames.length <= 1) {
                 this.clearFrame(frameNdx);
                 return;
+            } else {
+                let ndx = frames.indexOf(frame);
+                if(ndx !== -1) frames.splice(ndx, 1);
             }
-    
-            frames.splice(frameNdx, 1);
-            Renderer.scrubFrames(-1);
         }
 
-        this.clearFrame = function() {
-            frames[frameNdx].onScreen = new Array();
+        this.clearFrame = function(frame) {
+            frame.onScreen = new Array();
         }
 	}
 }

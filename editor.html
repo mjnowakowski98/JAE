@@ -17,6 +17,7 @@
     <script src="engine/screenobject.js"></script>
     <script src="engine/frame.js"></script>
     <script src="engine/layer.js"></script>
+    <script src="engine/layercontainer.js"></script>
     <script src="engine/animation.js"></script>
     <script src="engine/renderer.js"></script>
 
@@ -24,19 +25,22 @@
         let ctx = document.getElementById("canvas").getContext("2d");
 
         let methods = new Array();
-        let m1 = new DrawingMethod("moveTo", [0, 0]);
-        let m2 = new DrawingMethod("lineTo", [20, 0]);
-        let m3 = new DrawingMethod("lineTo", [20, 20]);
-        let m4 = new DrawingMethod("lineTo", [0, 20]);
-        let m5 = new DrawingMethod("closePath");
-        methods.push(m1, m2, m3, m4, m5);
+        methods.push(new DrawingMethod("moveTo", [0, 0]));
+        methods.push(new DrawingMethod("lineTo", [20, 0]));
+        methods.push(new DrawingMethod("lineTo", [20, 20]));
+        methods.push(new DrawingMethod("lineTo", [0, 20]));
+        methods.push(new DrawingMethod("closePath"));
         let draw1 = new Drawable(methods);
 
         let anim = new Animation();
-        Renderer.anim = anim;
-
         anim.registerDrawable(draw1);
-        anim.layers[0].frames[0].onScreen.push(new ScreenObject(draw1, new Point(50, 50)));
+        let draw2 = anim.getDrawables()[0];
+
+        anim.getLayers()[0].getFrames()[0].addObject(new ScreenObject(draw1, new Point(100, 100)));
+        let draw3 = anim.getLayers()[0].getFrames()[0].getOnScreen()[0].getDrawable();
+
+        if(draw1 === draw2 && draw2 === draw3) console.log(":D");
+        else console.error(":(");
 
     </script>
 </body>

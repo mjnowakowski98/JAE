@@ -1,5 +1,7 @@
 class Animation {
     constructor() {
+        Object.assign(this, new LayerContainer());
+
         let animName = "Untitled";
         this.getAnimName = function() { return animName; }
         this.setAnimName = function(name) {
@@ -52,17 +54,6 @@ class Animation {
                 dispatchEvent(Animation._drawablesChangeEvent);
             }
         }
-
-        let layers = new Array(new Layer());
-        this.getLayers = function() { return layers; }
-        this.addLayer = function() {
-            layers.push(new Layer());
-            dispatchEvent(Animation._layersChangeEvent);
-        }
-        this.removeLayer = function(ndx) {
-            layers.splice(ndx, 1);
-            dispatchEvent(Animation._layersChangeEvent);
-        }
     }
 
     makeSaveFile() {
@@ -74,7 +65,7 @@ class Animation {
         saveObject.framesPerSecond = this.getFramesPerSecond();
         saveObject.drawables = this.getDrawables();
         saveObject.layers = this.getLayers();
-        return JSON.stringify(this);
+        return JSON.stringify(saveObject);
     }
 
     loadAnimation(inputString) {

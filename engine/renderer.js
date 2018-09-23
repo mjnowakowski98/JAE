@@ -9,9 +9,9 @@ class Renderer {
             }
         } else dispatchEvent(Renderer._frameEvent);
 
-        for(let i = 0; i < Renderer.anim.frames[Renderer._currentFrame].onScreen.length; i++) {
-            let screenObject = Renderer.anim.frames[Renderer._currentFrame].onScreen[i];
-            Renderer.draw(screenObject.drawable, screenObject.position.x, screenObject.position.y);
+        let layers = Renderer.anim.getLayers();
+        for(let i = 0; i < layers.length; i++) {
+            
         }
 
         if(!Renderer.playMode) dispatchEvent(Renderer._frameEndEvent);
@@ -23,7 +23,7 @@ class Renderer {
         ctx.save();
         ctx.translate(position.x, position.y);
         
-        // Iterate through drawing methods here
+        ctx.fill(drawable);
         
         ctx.restore();
     }

@@ -13,8 +13,5 @@ class Drawable {
         let registration = new Point(0,0)
         this.getRegistration = function() { return registration; }
         this.setRegistration = function(position) { registration = position; }
-
-        let subLayers = new Array();
-        this.getSubLayers = function() { return subLayers; }
     }
 }
