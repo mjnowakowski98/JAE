@@ -1,5 +1,7 @@
 class Layer {
-	constructor() {
+	constructor(container) {
+        let parent = container;
+
         let layerName = "New layer";
         this.getLayerName = function() { return layerName; }
         this.setLayerName = function(name) {
@@ -7,6 +9,9 @@ class Layer {
         }
 
         let frames = new Array(new Frame());
+        for(let i = 1; i < parent.getNumFrames(); i++) {
+            frames.push(null);
+        }
         this.getFrames = function() { return frames; }
         this.addFrame = function(frameNdx, copy = false) {
             if(frameNdx < 0 || frameNdx >= frames.length) {
@@ -21,20 +26,21 @@ class Layer {
                     newFrame.onScreen[i] = Object.assign({}, oldFrame[i]);
             }
             frames.splice(frameNdx + 1, 0, newFrame);
-            return newFrame();
+
+            let parentFrameCount = parent.getNumFrames();
+            if(frames.length > parentFrameCount)
+                parent.addToFrameCount(frames.length - parentFrameCount);
+
+            return newFrame;
         }
         this.removeFrame = function(frame) {
             if (frames.length <= 1) {
-                this.clearFrame(frameNdx);
+                frame.clearFrame();
                 return;
             } else {
                 let ndx = frames.indexOf(frame);
-                if(ndx !== -1) frames.splice(ndx, 1);
+                if(ndx !== -1) frames[ndx] = null;
             }
-        }
-
-        this.clearFrame = function(frame) {
-            frame.onScreen = new Array();
         }
 	}
 }

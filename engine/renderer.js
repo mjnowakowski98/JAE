@@ -9,10 +9,11 @@ class Renderer {
             }
         } else dispatchEvent(Renderer._frameEvent);
 
-        let layers = Renderer.anim.getLayers();
-        for(let i = 0; i < layers.length; i++) {
-            
-        }
+        /*
+
+            RENDER ANIMATION HERE
+
+        */
 
         if(!Renderer.playMode) dispatchEvent(Renderer._frameEndEvent);
 

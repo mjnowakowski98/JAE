@@ -42,6 +42,13 @@
         if(draw1 === draw2 && draw2 === draw3) console.log(":D");
         else console.error(":(");
 
+        anim.getLayers()[0].addFrame(0);
+
+        anim.addLayer();
+
+        console.log(anim.getNumFrames());
+        console.log(anim.getLayers()[1].getFrames());
+
     </script>
 </body>
 </html>

@@ -9,5 +9,9 @@ class Frame {
             let ndx = onScreen.indexOf(screenObject);
             if(ndx !== -1) onScreen.splice(ndx, 1);
         }
+
+        this.clearFrame = function() {
+            onScreen = new Array();
+        }
     }
 }

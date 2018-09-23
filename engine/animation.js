@@ -88,4 +88,3 @@ Animation._canvasColorChangeEvent = new Event("canvascolorchange");
 Animation._canvasSizeChangeEvent = new Event("canvassizechange");
 Animation._framesPerSecondChangeEvent = new Event("animationfpschange");
 Animation._drawablesChangeEvent = new Event("animationdrawableschange");
-Animation._layersChangeEvent = new Event("animationlayerschange");

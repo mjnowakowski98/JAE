@@ -1,30 +1,39 @@
 class LayerContainer {
 	constructor() {
-		let layers = new Array(new Layer());
+		let layers = new Array();
         this.getLayers = function() { return layers; }
         this.addLayer = function() {
-			let newLayer = new Layer();
+			let newLayer = new Layer(this);
             layers.push(newLayer);
-			dispatchEvent(Animation._layersChangeEvent);
+			dispatchEvent(LayerContainer._layersChangeEvent);
 			return newLayer;
         }
         this.removeLayer = function(layerRef) {
 			let ndx = layers.indexOf(layerRef);
 			if(ndx !== -1) {
             	layers.splice(ndx, 1);
-				dispatchEvent(Animation._layersChangeEvent);
+				dispatchEvent(LayerContainer._layersChangeEvent);
 			}
-        }
+		}
+		
+		let numFrames = 1;
+		this.getNumFrames = function() { return numFrames; }
+		this.addToFrameCount = function(num) {
+			numFrames += num;
+			for(let i = 0; i < layers.length; i++) {
+				let diff = numFrames - layers[i].length;
+				for(let j = 0; j < diff; j++)
+					layers[i].getFrames().push(null);
+			}
+
+			return numFrames;
+		}
+		this.cleanFrameCount = function() {
+			// Implement - set frame count to highest layer framelength
+		}
+
+		this.addLayer();
 	}
-
-	getMaxNumFrames() {
-        let layers = this.getLayers();
-        let maxNum = 0;
-        for(let i = 0; i < layers.length; i++) {
-            let framesLength = layers[i].getFrames().length;
-            if(framesLength > maxNum) maxNum = framesLength;
-        }
-
-        return maxNum;
-    }
 }
+
+LayerContainer._layersChangeEvent = new Event("layerschange");
