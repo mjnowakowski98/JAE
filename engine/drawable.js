@@ -9,9 +9,5 @@ class Drawable {
             path[method.getMethodName()].apply(path, method.getArgsList());
         }
         this.getPath = function() { return path; }
-
-        let registration = new Point(0,0)
-        this.getRegistration = function() { return registration; }
-        this.setRegistration = function(position) { registration = position; }
     }
 }

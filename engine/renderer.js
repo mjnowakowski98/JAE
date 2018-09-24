@@ -13,7 +13,7 @@ class Renderer {
         Renderer.ctx.clearRect(0, 0, c.width, c.height);
         dispatchEvent(Renderer._frameEvent);
 
-        Renderer.drawLayers(Renderer.anim, Renderer._currentFrame);
+        Renderer.drawLayers(Renderer._anim, Renderer._currentFrame);
 
         if(!Renderer.playMode) dispatchEvent(Renderer._frameEndEvent);
         Renderer._requestId = requestAnimationFrame(Renderer.render);
@@ -50,19 +50,21 @@ class Renderer {
     }
 
     static scrubFrames(numFrames) {
-        let numAnimFrames = Renderer.anim.getNumFrames();
+        let numAnimFrames = Renderer._anim.getNumFrames();
         if(Renderer._currentFrame + numFrames >= 0) {
             if(Renderer._currentFrame + numFrames < numAnimFrames) Renderer._currentFrame += numFrames;
             else Renderer._currentFrame = 0;
         } else Renderer._currentFrame = numAnimFrames - 1;
     }
+
+    static getAnim() { return Renderer._anim; }
 }
 
 Renderer._requestId = null;
 Renderer._elapsedTime = 0;
 Renderer._oldTime = 0;
 Renderer.ctx = null;
-Renderer.anim = null;
+Renderer._anim = new Animation();
 Renderer.playMode = false;
 Renderer._framesPerSecond = 0;
 Renderer._fpsInterval = 0;
@@ -72,6 +74,6 @@ Renderer._frameEvent = new Event("editorframe");
 Renderer._frameEndEvent = new Event("editorframeend");
 
 addEventListener("animationfpschange", function() {
-    Renderer._framesPerSecond = Renderer.anim.getFramesPerSecond();
-    Renderer._fpsInterval = 1000 / Renderer.anim.getFramesPerSecond();
+    Renderer._framesPerSecond = Renderer._anim.getFramesPerSecond();
+    Renderer._fpsInterval = 1000 / Renderer._anim.getFramesPerSecond();
 });

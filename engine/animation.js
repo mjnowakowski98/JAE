@@ -36,6 +36,7 @@ class Animation {
             framesPerSecond = fps;
             dispatchEvent(Animation._framesPerSecondChangeEvent);
         }
+        this.setFramesPerSecond(60);
 
         let drawables = new Array();
         this.getDrawables = function() { return drawables; }

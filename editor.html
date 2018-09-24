@@ -28,17 +28,21 @@
         methods.push(new DrawingMethod("moveTo", [0, 0]));
         methods.push(new DrawingMethod("lineTo", [20, 0]));
         methods.push(new DrawingMethod("lineTo", [20, 20]));
-        methods.push(new DrawingMethod("lineTo", [0, 20]));
         methods.push(new DrawingMethod("closePath"));
         let draw1 = new Drawable(methods);
 
-        let anim = new Animation();
-        Renderer.anim = anim;
-        anim.setFramesPerSecond(60);
+        methods = new Array();
+        methods.push(new DrawingMethod("arc", [0, 0, 20, 0, Math.PI*2, false]));
+        let draw2 = new Drawable(methods);
+
+        let anim = Renderer.getAnim();
         anim.registerDrawable(draw1);
+        anim.registerDrawable(draw2);
 
         let scrObj1 = anim.getLayers()[0].getFrames()[0].addObject(new ScreenObject(draw1, new Point(100, 100)));
+        let scrObj2 = anim.getLayers()[0].getFrames()[0].addObject(new ScreenObject(draw2, new Point(200, 100)));
         scrObj1.setFillStyle("#a3a3a3");
+        scrObj2.setStrokeStyle("blue");
 
         Renderer.ctx = document.getElementById("canvas").getContext("2d");
         Renderer.render();
