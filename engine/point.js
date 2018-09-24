@@ -1,6 +1,4 @@
-class Point {
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
-    }
+var Point = function(x, y) {
+    this.x = x;
+    this.y = y;
 }
