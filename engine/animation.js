@@ -31,12 +31,14 @@ class Animation {
         }
 
         let framesPerSecond = 0;
+        let fpsInterval = 1000 / framesPerSecond;
         this.getFramesPerSecond = function() { return framesPerSecond; }
+        this.getFpsInterval = function() { return fpsInterval; }
         this.setFramesPerSecond = function(fps) {
             framesPerSecond = fps;
+            fpsInterval = 1000 / framesPerSecond;
             dispatchEvent(Animation._framesPerSecondChangeEvent);
         }
-        this.setFramesPerSecond(60);
 
         let drawables = new Array();
         this.getDrawables = function() { return drawables; }

@@ -15,7 +15,7 @@ class LayerContainer {
 				dispatchEvent(LayerContainer._layersChangeEvent);
 			}
 		}
-		
+
 		let numFrames = 1;
 		this.getNumFrames = function() { return numFrames; }
 		this.addToFrameCount = function(num) {
@@ -30,6 +30,15 @@ class LayerContainer {
 		}
 		this.cleanFrameCount = function() {
 			// Implement - set frame count to highest layer framelength
+		}
+
+		let currentFrame = 0;
+		this.getCurrentFrame = function() { return currentFrame; }
+		this.scrubFrames = function(speed) {
+			if(currentFrame + speed >= 0) {
+				if(currentFrame + speed < numFrames) currentFrame += speed;
+				else currentFrame = 0;
+			} else currentFrame = numFrames - 1;
 		}
 
 		this.addLayer();

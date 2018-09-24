@@ -35,7 +35,9 @@
         methods.push(new DrawingMethod("arc", [0, 0, 20, 0, Math.PI*2, false]));
         let draw2 = new Drawable(methods);
 
-        let anim = Renderer.getAnim();
+        let r = new Renderer(ctx);
+
+        let anim = r.getAnimation();
         anim.registerDrawable(draw1);
         anim.registerDrawable(draw2);
 
@@ -44,8 +46,7 @@
         scrObj1.setFillStyle("#a3a3a3");
         scrObj2.setStrokeStyle("blue");
 
-        Renderer.ctx = document.getElementById("canvas").getContext("2d");
-        Renderer.render();
+        Renderer.render(r);
 
 
 
