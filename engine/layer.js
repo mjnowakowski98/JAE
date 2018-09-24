@@ -33,6 +33,11 @@ class Layer {
 
             return newFrame;
         }
+        this.replaceFrame = function(frameNdx, frame) {
+            if(frameNdx >= 0 && frameNdx < frames.length)
+                frames[frameNdx] = frame;
+            return frame;
+        }
         this.removeFrame = function(frame) {
             if (frames.length <= 1) {
                 frame.clearFrame();

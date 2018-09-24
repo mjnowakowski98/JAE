@@ -7,10 +7,21 @@
     <title>Document</title>
 </head>
 <body>
-    <canvas style="border:1px solid;" id="canvas" width="800" height="600">
-        <p>Browser not supported</p>
-    </canvas>
+    <span>
+        <article>Canvas 1</article>
+        <canvas style="border:1px solid;" id="canvas" width="800" height="600">
+            <p>Browser not supported</p>
+        </canvas>
+    </span>
 
+    <span>
+        <article>Canvas 2</article>
+        <canvas style="border:1px solid;" id="canvas2" width="800" height="600">
+            <p>Q</p>
+        </canvas>
+    </span>
+
+    <script src="engine/evt.js"></script>
     <script src="engine/point.js"></script>
     <script src="engine/drawingmethod.js"></script>
     <script src="engine/drawable.js"></script>
@@ -23,30 +34,41 @@
 
     <script>
         let ctx = document.getElementById("canvas").getContext("2d");
+        let ctx2 = document.getElementById("canvas2").getContext("2d");
+
+        let r = new Renderer(ctx);
+        let r2 = new Renderer(ctx2);
+        let anim = r.getAnimation();
+        let anim2 = r2.getAnimation();
 
         let methods = new Array();
         methods.push(new DrawingMethod("moveTo", [0, 0]));
         methods.push(new DrawingMethod("lineTo", [20, 0]));
         methods.push(new DrawingMethod("lineTo", [20, 20]));
         methods.push(new DrawingMethod("closePath"));
-        let draw1 = new Drawable(methods);
+        let draw1 = new Drawable(methods, anim);
 
         methods = new Array();
         methods.push(new DrawingMethod("arc", [0, 0, 20, 0, Math.PI*2, false]));
-        let draw2 = new Drawable(methods);
+        let draw2 = new Drawable(methods, anim2);
 
-        let r = new Renderer(ctx);
-
-        let anim = r.getAnimation();
-        anim.registerDrawable(draw1);
-        anim.registerDrawable(draw2);
+        anim.getLayers()[0].addFrame(0);
+        anim.setFramesPerSecond(1);
+        anim2.getLayers()[0].addFrame(0);
+        anim2.setFramesPerSecond(2);
 
         let scrObj1 = anim.getLayers()[0].getFrames()[0].addObject(new ScreenObject(draw1, new Point(100, 100)));
-        let scrObj2 = anim.getLayers()[0].getFrames()[0].addObject(new ScreenObject(draw2, new Point(200, 100)));
+        let scrObj15 = anim.getLayers()[0].getFrames()[1].addObject(new ScreenObject(draw1, new Point(50, 200)));
+        let scrObj2 = anim2.getLayers()[0].getFrames()[0].addObject(new ScreenObject(draw2, new Point(200, 100)));
         scrObj1.setFillStyle("#a3a3a3");
+        scrObj15.setFillStyle("#a3a3a3");
         scrObj2.setStrokeStyle("blue");
 
+        r.setPlaybackMode(true);
+        r2.setPlaybackMode(true);
+
         Renderer.render(r);
+        Renderer.render(r2);
 
 
 

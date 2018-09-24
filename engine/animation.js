@@ -1,33 +1,40 @@
 class Animation {
     constructor() {
         Object.assign(this, new LayerContainer());
+        let nameChangeEvent = new Event("namechange");
+        let canvasColorChangeEvent = new Event("canvascolorchange");
+        let canvasSizeChangeEvent = new Event("canvassizechange");
+        let framesPerSecondChangeEvent = new Event("fpschange");
+        let drawablesChangeEvent = new Event("drawableschange");
+        let saveEvent = new Event("animsave");
+        let loadEvent = new Event("animload");
 
         let animName = "Untitled";
         this.getAnimName = function() { return animName; }
         this.setAnimName = function(name) {
             animName = name;
-            dispatchEvent(Animation._nameChangeEvent);
+            this.dispatchEvent(nameChangeEvent);
         }
 
         let canvasColor = "#FFFFFF";
         this.getCanvasColor = function() { return canvasColor; }
         this.setCanvasColor = function(color) {
             canvasColor = color;
-            dispatchEvent(Animation._canvasColorChangeEvent);
+            this.dispatchEvent(canvasColorChangeEvent);
         }
 
         let canvasWidth = 800;
         this.getCanvasWidth = function() { return canvasWidth; }
         this.setCanvasWidth = function(width) {
             canvasWidth = width;
-            dispatchEvent(Animation._canvasSizeChangeEvent);
+            this.dispatchEvent(canvasSizeChangeEvent);
         }
 
         let canvasHeight = 600;
         this.getcanvasHeight = function() { return canvasHeight; }
         this.setCanvasHeight = function(height) {
             canvasHeight = height;
-            dispatchEvent(Animation._canvasSizeChangeEvent);
+            this.dispatchEvent(canvasSizeChangeEvent);
         }
 
         let framesPerSecond = 0;
@@ -37,7 +44,7 @@ class Animation {
         this.setFramesPerSecond = function(fps) {
             framesPerSecond = fps;
             fpsInterval = 1000 / framesPerSecond;
-            dispatchEvent(Animation._framesPerSecondChangeEvent);
+            this.dispatchEvent(framesPerSecondChangeEvent);
         }
 
         let drawables = new Array();
@@ -45,7 +52,7 @@ class Animation {
         this.registerDrawable = function(drawable) {
             if(drawables.indexOf(drawable) === -1) {
                 drawables.push(drawable);
-                dispatchEvent(Animation._drawablesChangeEvent);
+                dispatchEvent(drawablesChangeEvent);
             }
         }
         this.unregisterDrawable = function(drawable) {
@@ -53,41 +60,38 @@ class Animation {
             if(ndx !== -1) {
                 for(let i in drawbles[ndx])
                     delete drawables[ndx][i];
-                    
-                dispatchEvent(Animation._drawablesChangeEvent);
+                this.dispatchEvent(drawablesChangeEvent);
             }
         }
-    }
 
-    makeSaveFile() {
-        let saveObject = new Object();
-        saveObject.animName = this.getAnimName();
-        saveObject.canvasColor = this.getCanvasColor();
-        saveObject.canvasWidth = this.getCanvasWidth();
-        saveObject.canvasHeight = this.getcanvasHeight();
-        saveObject.framesPerSecond = this.getFramesPerSecond();
-        //saveObject.drawables = this.getDrawables();
-        //saveObject.layers = this.getLayers();
-        return JSON.stringify(saveObject);
-    }
+        this.makeSaveFile = function() {
+            let saveObject = new Object();
+            saveObject.animName = this.getAnimName();
+            saveObject.canvasColor = this.getCanvasColor();
+            saveObject.canvasWidth = this.getCanvasWidth();
+            saveObject.canvasHeight = this.getcanvasHeight();
+            saveObject.framesPerSecond = this.getFramesPerSecond();
+            //saveObject.drawables = this.getDrawables();
+            //saveObject.layers = this.getLayers();
 
-    loadAnimation(inputString) {
-        let tmp = JSON.parse(inputString);
-        this.setAnimName(tmp.animName);
-        this.setCanvasColor(tmp.canvasColor);
-        this.setCanvasWidth(tmp.canvasWidth);
-        this.setCanvasHeight(tmp.canvasHeight);
-        this.setFramesPerSecond(tmp.framesPerSecond);
-        /*for(let i = 0; i < tmp.drawables.length; i++)
-            this.registerDrawable(tmp.drawables[i]);
+            this.dispatchEvent(saveEvent);
+            return JSON.stringify(saveObject);
+        }
 
-        for(let i = 0; i < tmp.layers.length; i++)
-            i = i;*/
+        this.loadAnimation = function(inputString) {
+            let tmp = JSON.parse(inputString);
+            this.setAnimName(tmp.animName);
+            this.setCanvasColor(tmp.canvasColor);
+            this.setCanvasWidth(tmp.canvasWidth);
+            this.setCanvasHeight(tmp.canvasHeight);
+            this.setFramesPerSecond(tmp.framesPerSecond);
+            /*for(let i = 0; i < tmp.drawables.length; i++)
+                this.registerDrawable(tmp.drawables[i]);
+    
+            for(let i = 0; i < tmp.layers.length; i++)
+                i = i;*/
+
+            this.dispatchEvent(loadEvent);
+        }
     }
 }
-
-Animation._nameChangeEvent = new Event("animationnamechange");
-Animation._canvasColorChangeEvent = new Event("canvascolorchange");
-Animation._canvasSizeChangeEvent = new Event("canvassizechange");
-Animation._framesPerSecondChangeEvent = new Event("animationfpschange");
-Animation._drawablesChangeEvent = new Event("animationdrawableschange");
