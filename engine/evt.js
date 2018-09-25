@@ -1,6 +1,5 @@
-class Evt extends EventTarget{
+class Evt {
 	constructor() {
-		super();
 		this.listeners = {};
 
 		this.addEventListener = function(type, callback) {
