@@ -1,7 +1,7 @@
 module.exports = {
-	Drawable:require("./engine/drawable.js"),
-	DrawingMethod:require("./engine/drawingmethod.js"),
-	Point:require("./engine/point.js"),
-	Renderer:require("./engine/renderer.js"),
-	ScreenObject:require("./engine/screenobject.js")
+	Drawable:require("./lib/drawable.js"),
+	DrawingMethod:require("./lib/drawingmethod.js"),
+	Point:require("./lib/point.js"),
+	Renderer:require("./lib/renderer.js"),
+	ScreenObject:require("./lib/screenobject.js")
 }

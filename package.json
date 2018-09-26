@@ -7,5 +7,9 @@
 		"name":"Matthew Nowakowski",
 		"email": "mjnowakowski@email.neit.edu"
 	},
+	"repository": {
+		"type":"git",
+		"url":"https://github.com/mjnowakowski98/JAE.git"
+	},
 	"private":true
 }
