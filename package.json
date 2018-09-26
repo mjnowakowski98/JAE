@@ -6,5 +6,6 @@
 	"author": {
 		"name":"Matthew Nowakowski",
 		"email": "mjnowakowski@email.neit.edu"
-	}
+	},
+	"private":true
 }
