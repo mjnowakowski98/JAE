@@ -2,7 +2,7 @@
 	"name":"jae-engine",
 	"version":"0.0.1",
 	"description":"Javascript Animation Engine",
-	"main":"./modules.js",
+	"main":"./app.js",
 	"author": {
 		"name":"Matthew Nowakowski",
 		"email": "mjnowakowski@email.neit.edu"
