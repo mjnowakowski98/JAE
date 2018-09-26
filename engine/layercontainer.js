@@ -1,21 +1,22 @@
-class LayerContainer {
-	constructor() {
-		Object.assign(this, new Evt());
-		let layerChangeEvent = new Event("layerchange");
+const EventEmitter = require('events');
+const Layer = require("./layer.js");
 
+class LayerContainer extends EventEmitter {
+	constructor() {
+		super();
 		let layers = new Array();
         this.getLayers = function() { return layers; }
         this.addLayer = function() {
 			let newLayer = new Layer(this);
             layers.push(newLayer);
-			this.dispatchEvent(layerChangeEvent);
+			this.emit('layerschange');
 			return newLayer;
         }
         this.removeLayer = function(layerRef) {
 			let ndx = layers.indexOf(layerRef);
 			if(ndx !== -1) {
             	layers.splice(ndx, 1);
-				this.dispatchEvent(layerChangeEvent);
+				this.emit('layerschange');
 			}
 		}
 
@@ -47,3 +48,5 @@ class LayerContainer {
 		this.addLayer();
 	}
 }
+
+module.exports = LayerContainer;

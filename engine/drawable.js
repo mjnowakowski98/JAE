@@ -1,3 +1,5 @@
+const LayerContainer = require("./layercontainer.js");
+
 class Drawable {
     constructor(methods, animation) {
         Object.assign(this, new LayerContainer());
@@ -15,3 +17,5 @@ class Drawable {
         animation.registerDrawable(this);
     }
 }
+
+module.exports = Drawable;

@@ -1,3 +1,5 @@
+const Frame = require("./frame.js");
+
 class Layer {
 	constructor(container) {
         let parent = container;
@@ -49,3 +51,5 @@ class Layer {
         }
 	}
 }
+
+module.exports = Layer;

@@ -7,3 +7,5 @@ class DrawingMethod {
         this.getArgsList = function() { return argsList; }
     }
 }
+
+module.exports = DrawingMethod;

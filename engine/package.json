@@ -1,0 +1,4 @@
+{
+	"name":"jae-engine",
+	"main":"./modules.js"
+}

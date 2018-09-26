@@ -65,3 +65,5 @@ class ScreenObject {
         this.setTextBaseline = function(baseline) { textBaseline = baseline; }
     }
 }
+
+module.exports = ScreenObject;

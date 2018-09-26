@@ -1,9 +1,9 @@
-class Renderer {
-    constructor(_ctx) {
-        Object.assign(this, new Evt());
-        let frameStartEvent = new Event("framestart");
-        let frameEndEvent = new Event("frameend");
+const EventEmitter = require('events');
+const Animation = require("./animation.js");
 
+class Renderer extends EventEmitter {
+    constructor(_ctx) {
+        super();
         let requestId = null;
         this.getRequestId = function() { return requestId; }
         this.setRequestId = function(id) { requestId = id; }
@@ -17,10 +17,6 @@ class Renderer {
 
         let anim = new Animation();
         this.getAnimation = function() { return anim; }
-        this.setAnimation = function(_anim) {
-            playMode = false;
-            anim = _anim;
-        }
 
         let elapsedTime = 0;
         let oldTime = 0;
@@ -37,9 +33,9 @@ class Renderer {
         this.frame = function() {
             if(playMode) this.stepPlayback(anim);
             ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-            this.dispatchEvent(frameStartEvent);
+            this.emit('framestart');
             this.drawLayers(anim);
-            this.dispatchEvent(frameEndEvent);
+            this.emit('frameend');
         }
     }
 
@@ -81,3 +77,5 @@ class Renderer {
         ctx.restore();
     }
 }
+
+module.exports = Renderer;

@@ -1,3 +1,5 @@
+const ScreenObject = require("./screenobject.js");
+
 class Frame {
     constructor() {
         let onScreen = new Array();
@@ -16,3 +18,5 @@ class Frame {
         }
     }
 }
+
+module.exports = Frame;
