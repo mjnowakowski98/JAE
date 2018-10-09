@@ -2,8 +2,10 @@
 	"name": "jae-engine",
 	"version": "0.0.1",
 	"description": "Javascript Animation Engine",
-	"main": "./module.js",
-	"dependencies": {},
+	"main": "./app.js",
+	"dependencies": {
+		"canvas": "^2.0.0-alpha.17"
+	},
 	"devDependencies": {},
 	"author": {
 		"name": "Matthew Nowakowski",
