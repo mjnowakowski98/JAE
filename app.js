@@ -10,6 +10,5 @@ function closeHandler() {
 }
 process.on('SIGHUP', closeHandler);
 process.on('SIGINT', closeHandler);
-process.on('SIGTERM', closeHandler);
 
 s.startServer(settings.app.port);
