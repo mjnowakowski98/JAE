@@ -4,7 +4,7 @@ const TCPServer = require('./lib/server/tcpserver.js');
 let s = new TCPServer();
 
 function closeHandler() {
-	console.log("Send amberlamps... D:");
+	console.log("Server ending");
 	s.stopServer();
 	process.exit();
 }
