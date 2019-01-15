@@ -12,4 +12,4 @@ let c = new CommandHandler();
 
 let commIn = { objMan:objMan, commandName:"createLayer", constructorArgs: { containerKey:anim.getKey(), name:"test" } };
 c.queueCommand(commIn);
-c.executeNextCommand();
+console.log(c.executeNextCommand());
