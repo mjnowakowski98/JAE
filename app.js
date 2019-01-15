@@ -13,3 +13,7 @@ let c = new CommandHandler();
 let commIn = { objMan:objMan, commandName:"createLayer", constructorArgs: { containerKey:anim.getKey(), name:"test" } };
 c.queueCommand(commIn);
 console.log(c.executeNextCommand());
+
+const { Server } = require("./lib/netclient/module.js");
+let s = new Server();
+s.startServer();

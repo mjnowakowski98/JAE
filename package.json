@@ -4,7 +4,8 @@
 	"description": "Javascript Animation Engine",
 	"main": "./app.js",
 	"dependencies": {
-		"canvas": "^2.2.0"
+		"canvas": "^2.2.0",
+		"cookies": "^0.7.3"
 	},
 	"devDependencies": {},
 	"author": {

@@ -18,6 +18,9 @@ const settings = {
 				}
 			],
 			length:25
+		},
+		server: {
+			httpPort: process.env.JAE_DEFAULTPORT || 8080
 		}
 	}
 };
