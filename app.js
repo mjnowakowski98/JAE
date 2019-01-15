@@ -10,7 +10,6 @@ let anim = r.getAnimation();
 let objMan = anim.getObjectManager();
 let c = new CommandHandler();
 
-let commIn = { objMan:objMan, commandName:"createFrame", constructorArgs: { containerKey:anim.getKey(), name:"test" } };
+let commIn = { objMan:objMan, commandName:"createLayer", constructorArgs: { containerKey:anim.getKey(), name:"test" } };
 c.queueCommand(commIn);
-
 c.executeNextCommand();
