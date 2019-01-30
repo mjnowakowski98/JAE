@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        addEventListener("load", () => {
+            let sessionKey = null;
+
+            fetch("http://localhost:8080/startsession")
+            .then((response) => {
+                return response.text();
+            }).then((text) => {
+                sessionKey = text;
+                console.log(sessionKey);
+                
+                fetch("http://localhost:8080/queuecommand", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-JAE-Session-Key": sessionKey
+                    },
+                    body: `{ "commandName":"createLayer", "containerKey":null, "name":"testlayer" }`
+                }).then((response) => {
+                    return response.text();
+                }).then((text) => {
+                    console.log(text);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
