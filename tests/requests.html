@@ -13,29 +13,25 @@
         addEventListener("load", () => {
             let sessionKey = null;
 
-            fetch("http://localhost:8080/endsession", { headers:{ "X-JAE-Session-Key":"dasdasdassdf" } })
-            .then((response) => response.text())
-            .then((text) => console.log(text));
-
-            /*fetch("http://localhost:8080/startsession")
+            fetch("http://localhost:8080/startsession")
             .then((response) => {
                 return response.json();
             }).then((json) => {
                 console.log(json);
                 
-                fetch("http://localhost:8080/queuecommand", {
+                fetch("http://localhost:8080/executecommand", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                         "X-JAE-Session-Key": json.sessionKey
                     },
-                    body: `{ "commandName":"createLayer", "constructorArgs": { "containerKey":"${json.animKey}", "name":"testlayer" } }`
+                    body: `{ "commandName":"createLayer", "constructorArgs": { "containerKey":"${json.animationKey}", "name":"testlayer" } }`
                 }).then((response) => {
                     return response.text();
                 }).then((text) => {
                     console.log(text);
                 });
-            });*/
+            });
         });
     </script>
 </body>
