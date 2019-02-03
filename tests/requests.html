@@ -12,27 +12,44 @@
     <script>
         addEventListener("load", () => {
             let sessionKey = null;
-
-            fetch("http://localhost:8080/startsession")
-            .then((response) => {
-                return response.json();
-            }).then((json) => {
-                console.log(json);
-                
-                fetch("http://localhost:8080/executecommand", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-JAE-Session-Key": json.sessionKey
-                    },
-                    body: `{ "commandName":"createLayer", "constructorArgs": { "containerKey":"${json.animationKey}", "name":"testlayer" } }`
-                }).then((response) => {
-                    return response.text();
-                }).then((text) => {
-                    console.log(text);
-                });
-            });
+            startSession();
         });
+
+        function createFrame(sessionKey, layerKey) {
+            fetch("http://localhost:8080/executecommand", {
+                method:"POST",
+                headers: {
+                    "Content-Type":"application/json",
+                    "X-JAE-Session-Key": sessionKey
+                },
+                body: `{ "commandName":"createFrame", "constructorArgs": { "layerKey":"${layerKey}", "frameNdx":0 } }`
+            }).then((response) => response.text())
+            .then((text) => console.log(text));
+        }
+
+        function createLayer(sessionKey, animKey) {
+            fetch("http://localhost:8080/executecommand", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-JAE-Session-Key": sessionKey
+                },
+                body: `{ "commandName":"createLayer", "constructorArgs": { "containerKey":"${animKey}", "name":"testlayer" } }`
+            }).then((response) => response.text())
+            .then((text) => {
+                console.log(text)
+                createFrame(sessionKey, text)
+            });
+        }
+
+        function startSession() {
+            fetch("http://localhost:8080/startsession")
+            .then((response) =>response.json())
+            .then ((json) => {
+                console.log(json);
+                createLayer(json.sessionKey, json.animationKey);
+            });
+        }
     </script>
 </body>
 
