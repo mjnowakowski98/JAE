@@ -4,4 +4,4 @@ const { settings } = require("./config.js");
 const { Server } = require("./lib/netclient/module.js");
 
 let s = new Server();
-s.startServer(settings.app.server.httpPort, settings.app.server.commandInterval);
+s.startServer(settings.app.server.httpPort);
