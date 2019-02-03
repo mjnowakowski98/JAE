@@ -13,7 +13,7 @@
         addEventListener("load", () => {
             let sessionKey = null;
 
-            fetch("http://localhost:8080/startsession")
+            fetch("http://localhost:8080/startsession", { method:"POST" })
             .then((response) => response.json())
             .then((json) => console.log(json));
 
