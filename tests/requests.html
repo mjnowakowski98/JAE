@@ -15,18 +15,17 @@
 
             fetch("http://localhost:8080/startsession")
             .then((response) => {
-                return response.text();
-            }).then((text) => {
-                sessionKey = text;
-                console.log(sessionKey);
+                return response.json();
+            }).then((json) => {
+                console.log(json);
                 
                 fetch("http://localhost:8080/queuecommand", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
-                        "X-JAE-Session-Key": sessionKey
+                        "X-JAE-Session-Key": json.sessionKey
                     },
-                    body: `{ "commandName":"createLayer", "containerKey":null, "name":"testlayer" }`
+                    body: `{ "commandName":"createLayer", "constructorArgs": { "containerKey":"${json.animKey}", "name":"testlayer" } }`
                 }).then((response) => {
                     return response.text();
                 }).then((text) => {
