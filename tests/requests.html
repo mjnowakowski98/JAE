@@ -15,6 +15,18 @@
             startSession();
         });
 
+        function deleteFrame(sessionKey, frameKey) {
+            fetch("http://localhost:8080/executecommand", {
+                method: "POST",
+                headers: {
+                    "Content-Type":"application/json",
+                    "X-JAE-Session-Key":sessionKey
+                },
+                body: `{ "commandName":"deleteAnimationObject", "constructorArgs": { "key":"${frameKey}" } }`
+            }).then((response) => response.text())
+            .then((text) => console.log(text));
+        }
+
         function createFrame(sessionKey, layerKey) {
             fetch("http://localhost:8080/executecommand", {
                 method:"POST",
@@ -24,7 +36,10 @@
                 },
                 body: `{ "commandName":"createFrame", "constructorArgs": { "layerKey":"${layerKey}", "frameNdx":0 } }`
             }).then((response) => response.text())
-            .then((text) => console.log(text));
+            .then((text) => {
+                console.log(text);
+                deleteFrame(sessionKey, text);
+            });
         }
 
         function createLayer(sessionKey, animKey) {
