@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div style="width:80%; margin:0 auto; background-color:dodgerblue">
+        <canvas width="1280" height="720">
+            <p>Not supported</p>
+        </canvas>
+    </div>
+
+    <script>
+        const socket = new WebSocket("ws://localhost/upgrade", "json");
+
+        socket.addEventListener('open', (evt) => socket.send(`{ "test":"test" }`));
+        socket.addEventListener('message', (evt) => console.log(event.data));
+    </script>
+</body>
+</html>
