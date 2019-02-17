@@ -14,7 +14,7 @@
     </div>
 
     <script>
-        const socket = new WebSocket("ws://localhost/upgrade", "json");
+        const socket = new WebSocket("ws://localhost/", "json");
 
         socket.addEventListener('open', (evt) => socket.send(`{ "test":"test" }`));
         socket.addEventListener('message', (evt) => console.log(event.data));
