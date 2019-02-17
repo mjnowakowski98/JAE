@@ -16,8 +16,13 @@
     <script>
         const socket = new WebSocket("ws://localhost/", "json");
 
-        socket.addEventListener('open', (evt) => socket.send(`{ "test":"test" }`));
-        socket.addEventListener('message', (evt) => console.log(event.data));
+        // { "commandName":"createLayer", "constructorArgs": { "containerKey":"${animKey}", "name":"testlayer" } }
+
+        socket.addEventListener('open', (evt) => console.log("Connection opened"));
+        socket.addEventListener('message', (evt) => {
+            let serverMessage = JSON.parse(evt.data);
+            console.log(serverMessage);
+        });
     </script>
 </body>
 </html>
