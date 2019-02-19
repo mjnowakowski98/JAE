@@ -27,7 +27,6 @@
             
         });
         socket.addEventListener('message', (evt) => {
-            console.log(evt.data);
             let serverMessage = JSON.parse(evt.data);
             switch(serverMessage.action) {
                 case "newConnection":
