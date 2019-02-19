@@ -7,31 +7,25 @@
     <title>Document</title>
 </head>
 <body>
-    <div style="width:80%; margin:0 auto; background-color:dodgerblue">
-        <canvas width="1280" height="720">
-            <p>Not supported</p>
-        </canvas>
-    </div>
+    <img src="#">
 
     <script>
         const socket = new WebSocket("ws://localhost/", "json");
         let animationKey = null;
 
-        let canvas = document.querySelector("canvas");
-        let ctx = canvas.getContext("2d");
-
-        let frameData = null;
-
-        // { "commandName":"createLayer", "constructorArgs": { "containerKey":"${animKey}", "name":"testlayer" } }
+        let img = document.querySelector("img");
 
         function render() {
             ctx.clearRect(0, 0, 1280, 720);
-            if (framedata) ctx.putImageData(frameData, 0, 0);
+            ctx.drawImage()
 
             requestAnimationFrame(() => render);
         }
 
-        socket.addEventListener('open', (evt) => console.log("Connection opened"));
+        socket.addEventListener('open', (evt) => {
+            
+            
+        });
         socket.addEventListener('message', (evt) => {
             console.log(evt.data);
             let serverMessage = JSON.parse(evt.data);
@@ -42,8 +36,7 @@
                     break;
 
                 case "render":
-                    //frameData = new ImageData(serverMessage.extended.frameData);
-                    console.log("Recieved rendering message");
+                    img.src = serverMessage.extended.frameData;
                     break;
 
                 default:
