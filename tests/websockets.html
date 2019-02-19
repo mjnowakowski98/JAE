@@ -33,6 +33,7 @@
 
         socket.addEventListener('open', (evt) => console.log("Connection opened"));
         socket.addEventListener('message', (evt) => {
+            console.log(evt.data);
             let serverMessage = JSON.parse(evt.data);
             switch(serverMessage.action) {
                 case "newConnection":
@@ -41,8 +42,8 @@
                     break;
 
                 case "render":
-                    frameData = new ImageData(serverMessage.extended.frameData);
-                    console.log("recieved rendering message");
+                    //frameData = new ImageData(serverMessage.extended.frameData);
+                    console.log("Recieved rendering message");
                     break;
 
                 default:
