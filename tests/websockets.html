@@ -24,6 +24,15 @@
 
         socket.addEventListener('open', (evt) => console.log("Connected"));
 
+        function AnimObj(_key, _type) {
+            this.key = _key;
+            this.type = _type;
+            this.children = new Array();
+        }
+
+        let animation = null;
+        let currentRoot = null;
+
         socket.addEventListener('message', (evt) => {
             let serverMessage = JSON.parse(evt.data);
             switch(serverMessage.action) {
@@ -32,8 +41,8 @@
                     break;
 
                 case "newConnection":
-                    animationKey = serverMessage.extended.animationKey;
-                    console.log(animationKey);
+                    animation = new AnimObj(serverMessage.extended.animationKey, "layercontainer");
+                    currentRoot = animation;
                     break;
 
                 case "createObject":
