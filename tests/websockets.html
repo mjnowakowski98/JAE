@@ -22,16 +22,22 @@
             requestAnimationFrame(() => render);
         }
 
-        socket.addEventListener('open', (evt) => {
-            
-            
-        });
+        socket.addEventListener('open', (evt) => console.log("Connected"));
+
         socket.addEventListener('message', (evt) => {
             let serverMessage = JSON.parse(evt.data);
             switch(serverMessage.action) {
+                case "error":
+                    console.error(serverMessage.error);
+                    break;
+
                 case "newConnection":
                     animationKey = serverMessage.extended.animationKey;
                     console.log(animationKey);
+                    break;
+
+                case "createObject":
+                    console.log(`${serverMessage.extended.objKey}:${serverMessage.extended.type}`);
                     break;
 
                 case "render":

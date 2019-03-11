@@ -20,7 +20,7 @@ const settings = {
 			length:25
 		},
 		server: {
-			httpPort: process.env.JAE_DEFAULTPORT || 8080,
+			httpPort: process.env.JAE_DEFAULTPORT || 80,
 			magicSocketString: process.env.JAE_MAGICSOCKETSTRING || "258EAFA5-E914-47DA-95CA-C5AB0DC85B11"
 		}
 	}
