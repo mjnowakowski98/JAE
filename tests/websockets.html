@@ -33,6 +33,54 @@
         let animation = null;
         let currentRoot = null;
 
+        function CommandDescriptor(type, name, args) {
+            this.commandType = type;
+            this.commandName = name;
+            this.constructorArgs = args;
+        }
+
+        function DrawingMethod(name, args) {
+            this.methodName = name;
+            this.argsList = args;
+        }
+
+        function getChildObjs(key) {
+            let commDesc = new CommandDescriptor("animation", "getChildAnimationObjects", {key:key});
+            socket.send(JSON.stringify(commDesc));
+        }
+
+        function getSquareMethods(color) {
+            let methods = [
+                new DrawingMethod("moveTo", [-10, 10]),
+                new DrawingMethod("lineTo", [10, 10]),
+                new DrawingMethod("lineTo", [10, -10]),
+                new DrawingMethod("lineTo", [-10, -10]),
+                new DrawingMethod("closePath", []),
+                new DrawingMethod("fill", [])
+            ];
+            return methods;
+        }
+
+        function makeLayer(containerKey, name) {
+            let commDesc = new CommandDescriptor("animation", "createLayer", {containerKey:containerKey, name:name});
+            socket.send(JSON.stringify(commDesc));
+        }
+
+        function makeFrame(layerKey, frameNdx) {
+            let commDesc = new CommandDescriptor("animation", "createFrame", {layerKey:layerKey, frameNdx:frameNdx});
+            socket.send(JSON.stringify(commDesc));
+        }
+
+        function makeSceneObj(frameKey, pathKey) {
+            let commDesc = new CommandDescriptor("animation", "createSceneObject", {frameKey:frameKey, pathKey:pathKey});
+            socket.send(JSON.stringify(commDesc));
+        }
+
+        function makePath(drawingMethods, name) {
+            let commDesc = new CommandDescriptor("animation", "createPath", {drawingMethods:drawingMethods, name:name});
+            socket.send(JSON.stringify(commDesc));
+        }
+
         socket.addEventListener('message', (evt) => {
             let serverMessage = JSON.parse(evt.data);
             switch(serverMessage.action) {
@@ -47,6 +95,14 @@
 
                 case "createObject":
                     console.log(`${serverMessage.extended.objKey}:${serverMessage.extended.type}`);
+                    break;
+
+                case "saveAnimation":
+                    console.log(`${serverMessage.extended.saveString}`);
+                    break;
+
+                case "getChildren":
+                    console.log(serverMessage.extended.children);
                     break;
 
                 case "render":
