@@ -81,6 +81,11 @@
             socket.send(JSON.stringify(commDesc));
         }
 
+        function setPlayMode(playMode) {
+            let commDesc = new CommandDescriptor("engine", "setPlayMode", {playMode:playMode});
+            socket.send(JSON.stringify(commDesc));
+        }
+
         socket.addEventListener('message', (evt) => {
             let serverMessage = JSON.parse(evt.data);
             switch(serverMessage.action) {
@@ -107,6 +112,10 @@
 
                 case "render":
                     img.src = serverMessage.extended.frameData;
+                    break;
+
+                case "information":
+                    console.log(`Server: ${serverMessage.extended.message}`);
                     break;
 
                 default:
