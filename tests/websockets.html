@@ -49,6 +49,10 @@
             socket.send(JSON.stringify(commDesc));
         }
 
+        function saveAnimation() {
+
+        }
+
         function getSquareMethods(color) {
             let methods = [
                 new DrawingMethod("moveTo", [-10, 10]),
@@ -83,6 +87,26 @@
 
         function setPlayMode(playMode) {
             let commDesc = new CommandDescriptor("engine", "setPlayMode", {playMode:playMode});
+            socket.send(JSON.stringify(commDesc));
+        }
+
+        function updateLayerName(layerKey, name) {
+            let commDesc = new CommandDescriptor("animation", "setLayerName", {layerKey:layerKey, name:name});
+            socket.send(JSON.stringify(commDesc));
+        }
+
+        function updatePathName(pathKey, name) {
+            let commDesc = new CommandDescriptor("animation", "setPathName", {pathKey:pathKey, name:name});
+            socket.send(JSON.stringify(commDesc));
+        }
+
+        function setPathToSceneObject(sceneObjKey, pathKey) {
+            let commDesc = new CommandDescriptor("animation", "setSceneObjectPath", {sceneObjKey:sceneObjKey, pathKey:pathKey});
+            socket.send(JSON.stringify(commDesc));
+        }
+
+        function updateSceneObjectPosition(sceneObjKey, x, y) {
+            let commDesc = new CommandDescriptor("animation", "setSceneObjectPosition", {sceneObjKey:sceneObjKey, position:{x:x, y:y}});
             socket.send(JSON.stringify(commDesc));
         }
 
