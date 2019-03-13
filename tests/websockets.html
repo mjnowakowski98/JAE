@@ -94,7 +94,7 @@
                     break;
 
                 case "newConnection":
-                    animation = new AnimObj(serverMessage.extended.animationKey, "layercontainer");
+                    animation = new AnimObj(serverMessage.extended.animationKey, serverMessage.extended.type);
                     currentRoot = animation;
                     break;
 
