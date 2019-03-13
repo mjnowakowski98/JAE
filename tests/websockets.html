@@ -102,6 +102,10 @@
                     console.log(`${serverMessage.extended.objKey}:${serverMessage.extended.type}`);
                     break;
 
+                case "updateObject":
+                    console.log(`${serverMessage.extended.objKey}:${serverMessage.extended.property} -> ${serverMessage.error.value}`);
+                    break;
+
                 case "saveAnimation":
                     console.log(`${serverMessage.extended.saveString}`);
                     break;
