@@ -1,5 +1,6 @@
 const env = process.env.NODE_ENV || "dev";
 
+// Global settings
 const settings = {
 	appDir:__dirname,
 	canvas: {
@@ -8,20 +9,24 @@ const settings = {
 	}
 };
 
+// Environment settings
+// Dev
 const dev = {
 	uuidVersion:"v1"
 };
 
+// Production
 const production = {
 	uuidVersion:"v4"
 }
 
-
+// Config export setup
 const config = {
 	dev,
 	production
 };
 
+// Module export
 module.exports = {
 	settings,
 	env: config[env]
